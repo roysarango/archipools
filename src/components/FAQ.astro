@@ -1,0 +1,60 @@
+---
+const faqs = [
+	{
+		question: 'What pool services does Archipools provide?',
+		answer:
+			'We provide recurring pool cleaning, water testing and balancing, filter and basket care, and routine visual equipment checks. If we notice an equipment concern, we will explain what we found and discuss the appropriate next step with you.',
+	},
+	{
+		question: 'What is included in weekly pool maintenance?',
+		answer:
+			'Typical weekly service includes skimming the surface, brushing pool walls and steps, emptying baskets, checking the filtration system, testing the water, and balancing routine chemicals. Your final quote will clearly identify what is included for your pool.',
+	},
+	{
+		question: 'Which North Dallas communities do you serve?',
+		answer:
+			'Our primary service area includes Carrollton, The Colony, Lewisville, Addison, Farmers Branch, Coppell, and nearby North Dallas communities. Contact us with your ZIP code and we will confirm route availability.',
+	},
+	{
+		question: 'Do you offer a promotion for new customers?',
+		answer:
+			'Yes. New recurring-service customers can receive 50% off their first month of weekly pool maintenance. Availability is limited by service route, and additional recovery treatments, repairs, or specialty chemicals are not included unless stated in your quote.',
+	},
+	{
+		question: 'Can you take over a pool that needs extra attention?',
+		answer:
+			'Yes, but a neglected or green pool may need an initial recovery service before normal weekly maintenance can begin. We will inspect the condition of the water and equipment and provide a separate recommendation when additional work is required.',
+	},
+	{
+		question: 'Do I need to be home during service?',
+		answer:
+			'Usually not. We only need safe access to the pool and equipment area. After service, we can provide a brief update so you know the visit was completed and whether anything needs your attention.',
+	},
+];
+---
+
+<section class="faq-module section" id="faq" aria-labelledby="faq-title">
+	<div class="faq-intro">
+		<p class="module-eyebrow">Common questions</p>
+		<h2 id="faq-title">Pool care,<br /><span>clearly explained.</span></h2>
+		<p>
+			Everything you need to know before starting recurring pool service. If your question
+			isn’t listed, send us a message and we’ll give you a direct answer.
+		</p>
+		<a class="module-text-link" href="#contact">Ask us a question <span aria-hidden="true">→</span></a>
+	</div>
+
+	<div class="faq-list">
+		{faqs.map((faq, index) => (
+			<details class="faq-item" open={index === 0}>
+				<summary>
+					<span>{faq.question}</span>
+					<span class="faq-toggle" aria-hidden="true"></span>
+				</summary>
+				<div class="faq-answer">
+					<p>{faq.answer}</p>
+				</div>
+			</details>
+		))}
+	</div>
+</section>

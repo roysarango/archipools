@@ -1,0 +1,125 @@
+---
+import '../styles/carousel.css';
+
+// Five seconds gives visitors enough time to read each description.
+// Change this value to 4000 if you prefer four seconds.
+const AUTOPLAY_DELAY = 5000;
+
+const slides = [
+	{
+		eyebrow: 'Weekly maintenance',
+		title: 'Consistent care, every visit.',
+		description:
+			'Routine cleaning and water balancing keep your pool ready to enjoy while helping prevent small issues from becoming expensive problems.',
+		image: '/images/carousel/weekly-maintenance.png',
+		alt: 'Pool technician performing routine maintenance on a residential swimming pool',
+	},
+	{
+		eyebrow: 'Water quality',
+		title: 'Clear water starts with balance.',
+		description:
+			'We test the water and make measured adjustments based on what your pool actually needs—not guesswork or unnecessary chemicals.',
+		image: '/images/carousel/water-testing.png',
+		alt: 'Water testing equipment beside a clean blue swimming pool',
+	},
+	{
+		eyebrow: 'Equipment attention',
+		title: 'Catch concerns before they grow.',
+		description:
+			'Regular visual checks of pumps, filters, and accessible equipment help identify leaks, pressure changes, and other warning signs early.',
+		image: '/images/carousel/equipment-check.png',
+		alt: 'Residential pool pump and filtration equipment being inspected',
+	},
+];
+---
+
+<section
+	class="showcase section"
+	id="services"
+	aria-labelledby="showcase-title"
+	aria-roledescription="carousel"
+	data-showcase
+	data-autoplay-delay={AUTOPLAY_DELAY}
+>
+	<div class="showcase-heading">
+		<div>
+			<p class="showcase-eyebrow">How we care for your pool</p>
+			<h2 id="showcase-title">Professional service.<br /><span>Visible results.</span></h2>
+		</div>
+		<p>
+			A closer look at the recurring care that keeps North Dallas pools clean, balanced,
+			and ready to enjoy.
+		</p>
+	</div>
+
+	<div class="showcase-stage">
+		<button
+			type="button"
+			class="showcase-arrow showcase-arrow--previous"
+			data-previous
+			aria-label="Show previous service"
+		>
+			<svg viewBox="0 0 24 24" aria-hidden="true">
+				<path d="m15 18-6-6 6-6"></path>
+			</svg>
+		</button>
+
+		<div class="showcase-viewport">
+			<div class="showcase-slides" aria-live="off" data-slides>
+				{slides.map((slide, index) => (
+					<article
+						class="showcase-slide"
+						data-slide
+						hidden={index !== 0}
+						aria-label={`${slide.eyebrow}: ${slide.title}`}
+					>
+						<div class="showcase-image">
+							<img
+								src={slide.image}
+								alt={slide.alt}
+								width="1448"
+								height="1086"
+								loading={index === 0 ? 'eager' : 'lazy'}
+								decoding="async"
+							/>
+						</div>
+
+						<div class="showcase-copy">
+							<p class="showcase-eyebrow">{slide.eyebrow}</p>
+							<h3>{slide.title}</h3>
+							<p>{slide.description}</p>
+							<a class="showcase-link" href="#contact">
+								Request a quote <span aria-hidden="true">→</span>
+							</a>
+						</div>
+					</article>
+				))}
+			</div>
+		</div>
+
+		<button
+			type="button"
+			class="showcase-arrow showcase-arrow--next"
+			data-next
+			aria-label="Show next service"
+		>
+			<svg viewBox="0 0 24 24" aria-hidden="true">
+				<path d="m9 18 6-6-6-6"></path>
+			</svg>
+		</button>
+
+		<div class="showcase-dots" aria-label="Choose a service">
+			{slides.map((slide, index) => (
+				<button
+					type="button"
+					class="showcase-dot"
+					data-dot={index}
+					aria-label={`Show ${slide.eyebrow}`}
+					aria-current={index === 0 ? 'true' : 'false'}
+				></button>
+			))}
+		</div>
+	</div>
+</section>
+
+<script is:inline src="/scripts/service-carousel.js" defer></script>

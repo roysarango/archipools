@@ -1,0 +1,35 @@
+---
+import "../styles/welcome.css";
+
+const areas = [
+  "Carrollton",
+  "The Colony",
+  "Lewisville",
+  "Addison",
+  "Farmers Branch",
+  "Coppell",
+];
+---
+
+<section class="area-section section" id="area">
+  <div class="area-copy">
+    <p class="eyebrow light"><span></span> Proudly serving North Dallas</p>
+    <h2>Local routes.<br /><em>Better service.</em></h2>
+    <p>
+      We keep our routes focused so we can be dependable, responsive, and close
+      by when you need us.
+    </p>
+    <div class="area-list" aria-label="Primary service areas">
+      {areas.map((area) => <span>{area}</span>)}
+    </div>
+  </div>
+  <div class="area-map" aria-hidden="true">
+    <div class="map-ring ring-one"></div>
+    <div class="map-ring ring-two"></div>
+    <div class="map-ring ring-three"></div>
+    <div class="map-route route-one"></div>
+    <div class="map-route route-two"></div>
+    <div class="map-pin"><span></span></div>
+    <p>North<br />Dallas</p>
+  </div>
+</section>

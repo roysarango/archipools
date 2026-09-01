@@ -1,46 +1,39 @@
-# Astro Starter Kit: Basics
+# Archipools Pool Services
+
+A responsive Astro landing page for a North Dallas pool maintenance company.
+
+## Local development
 
 ```sh
-npm create astro@latest -- --template basics
+npm install
+npm run dev -- --host 0.0.0.0
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+Astro will serve the site at `http://localhost:4321`.
 
-## 🚀 Project Structure
+## Share the preview
 
-Inside of your Astro project, you'll see the following folders and files:
+With the local development server running, open a second terminal:
 
-```text
-/
-├── public/
-│   └── favicon.svg
-├── src
-│   ├── assets
-│   │   └── astro.svg
-│   ├── components
-│   │   └── Welcome.astro
-│   ├── layouts
-│   │   └── Layout.astro
-│   └── pages
-│       └── index.astro
-└── package.json
+```sh
+cloudflared tunnel --url http://localhost:4321
 ```
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
+Send the temporary `trycloudflare.com` URL to your review partner. The URL works
+only while the local server, tunnel process, laptop, and internet connection
+remain active.
 
-## 🧞 Commands
+## Production build
 
-All commands are run from the root of the project, from a terminal:
+```sh
+npm run build
+```
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+The generated static site is written to `dist/`.
 
-## 👀 Want to learn more?
+## Before launch
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+- Replace `hello@example.com` with the real business email address.
+- Replace the working company name if a final brand name is selected.
+- Add real pool/project photography when it becomes available.
+- Add final promotion terms, business phone number, privacy policy, and analytics.

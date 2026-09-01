@@ -1,0 +1,92 @@
+:root {
+	/* Logo-derived brand colors */
+	--color-navy-950: #01071a;
+	--color-navy-900: #031b40;
+	--color-navy-800: #062755;
+	--color-blue-700: #103b74;
+	--color-blue-600: #2a61a5;
+	--color-blue-500: #3c87d3;
+	--color-cyan-400: #57b2f4;
+
+	/* Neutral colors */
+	--color-white: #ffffff;
+	--color-surface: #f6f9fc;
+	--color-surface-blue: #eaf4fc;
+	--color-border: #d5e4f1;
+	--color-text: #071b35;
+	--color-text-muted: #5c6f84;
+
+	/* Shared effects */
+	--shadow-button: 0 10px 25px rgb(16 59 116 / 20%);
+	--shadow-card: 0 18px 42px rgb(3 27 64 / 18%);
+	--radius-large: 32px;
+	--radius-medium: 24px;
+
+	font-family:
+		Manrope,
+		Inter,
+		"Segoe UI",
+		Helvetica,
+		Arial,
+		sans-serif;
+	color: var(--color-text);
+	background: var(--color-white);
+	font-synthesis: none;
+}
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+html {
+	scroll-behavior: smooth;
+	scroll-padding-top: 7rem;
+}
+
+body {
+	margin: 0;
+	min-width: 320px;
+	background: var(--color-white);
+	color: var(--color-text);
+	font-family: inherit;
+	-webkit-font-smoothing: antialiased;
+	text-rendering: optimizeLegibility;
+}
+
+a {
+	color: inherit;
+}
+
+button,
+input,
+textarea,
+select {
+	font: inherit;
+}
+
+img {
+	display: block;
+	max-width: 100%;
+}
+
+:focus-visible {
+	outline: 3px solid var(--color-cyan-400);
+	outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	html {
+		scroll-behavior: auto;
+	}
+
+	*,
+	*::before,
+	*::after {
+		scroll-behavior: auto !important;
+		transition-duration: 0.01ms !important;
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+	}
+}

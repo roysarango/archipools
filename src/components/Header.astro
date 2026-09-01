@@ -1,0 +1,43 @@
+---
+import '../styles/header.css';
+---
+
+<header class="archi-header" data-site-header>
+	<a class="header-logo-link" href="#top" aria-label="Archipools Pool Services home">
+		<img
+			class="header-logo"
+			src="/logo1.jpg"
+			alt="Archipools Pool Services"
+			width="64"
+			height="64"
+		/>
+	</a>
+
+	<nav class="header-nav header-nav--desktop" aria-label="Primary navigation">
+		<a href="#services">Services</a>
+		<a href="#area">Service area</a>
+		<a href="#faq">FAQ</a>
+		<a class="header-cta" href="#contact">Request a quote</a>
+	</nav>
+
+	<details class="header-menu" data-menu>
+		<summary class="menu-toggle" aria-label="Open navigation menu">
+			<span></span>
+			<span></span>
+			<span></span>
+		</summary>
+
+		<nav
+			class="header-nav header-nav--mobile"
+			aria-label="Mobile navigation"
+			data-navigation
+		>
+			<a href="#services">Services</a>
+			<a href="#area">Service area</a>
+			<a href="#faq">FAQ</a>
+			<a class="header-cta" href="#contact">Request a quote</a>
+		</nav>
+	</details>
+</header>
+
+<script is:inline src="/scripts/header-menu.js" defer></script>
