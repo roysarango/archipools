@@ -17,6 +17,11 @@ interface ContactPayload {
 
 const CONTACT_EMAIL = 'info@archi-pools.com';
 const SENDER_EMAIL = 'website@notifications.archi-pools.com';
+const CANONICAL_HOST = 'archi-pools.com';
+const REDIRECT_HOSTS = new Set([
+	'www.archi-pools.com',
+	'archipools.dontomitasm.workers.dev',
+]);
 const SERVICES = new Set([
 	'Weekly pool service',
 	'Pool recovery',
@@ -209,6 +214,11 @@ async function handleContact(request: Request, env: Env) {
 export default {
 	async fetch(request: Request, env: Env): Promise<Response> {
 		const url = new URL(request.url);
+		if (REDIRECT_HOSTS.has(url.hostname)) {
+			url.hostname = CANONICAL_HOST;
+			url.protocol = 'https:';
+			return Response.redirect(url.toString(), 308);
+		}
 		if (url.pathname === '/api/contact') return handleContact(request, env);
 		return env.ASSETS.fetch(request);
 	},
