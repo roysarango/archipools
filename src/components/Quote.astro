@@ -1,5 +1,7 @@
 ---
 import "../styles/welcome.css";
+
+const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY ?? "";
 ---
 
 <section class="contact-section section" id="contact">
@@ -12,18 +14,94 @@ import "../styles/welcome.css";
         <a href="mailto:info@archi-pools.com">info@archi-pools.com</a>
       </div>
     </div>
-    <div class="contact-action">
-      <p>
-        Tell us where you’re located and a little about your pool. We’ll follow
-        up with a clear, no-pressure quote.
-      </p>
-      <a
-        class="button button-primary"
-        href="mailto:info@archi-pools.com?subject=Pool service quote"
+    <form class="contact-form" data-contact-form action="/api/contact" method="post">
+      <div class="form-row">
+        <label>
+          <span>Name</span>
+          <input name="name" type="text" autocomplete="name" maxlength="100" required />
+        </label>
+        <label>
+          <span>Phone</span>
+          <input
+            name="phone"
+            type="tel"
+            autocomplete="tel"
+            inputmode="tel"
+            maxlength="30"
+            required
+          />
+        </label>
+      </div>
+
+      <div class="form-row">
+        <label>
+          <span>Email <small>(optional)</small></span>
+          <input name="email" type="email" autocomplete="email" maxlength="254" />
+        </label>
+        <label>
+          <span>ZIP code</span>
+          <input
+            name="zip"
+            type="text"
+            autocomplete="postal-code"
+            inputmode="numeric"
+            pattern="[0-9]{5}(-[0-9]{4})?"
+            maxlength="10"
+            required
+          />
+        </label>
+      </div>
+
+      <label>
+        <span>How can we help?</span>
+        <select name="service" required>
+          <option value="">Select a service</option>
+          <option value="Weekly pool service">Weekly pool service</option>
+          <option value="Pool recovery">Green or neglected pool recovery</option>
+          <option value="Equipment concern">Equipment concern</option>
+          <option value="Other">Other</option>
+        </select>
+      </label>
+
+      <label>
+        <span>Tell us about your pool <small>(optional)</small></span>
+        <textarea name="message" rows="4" maxlength="1500"></textarea>
+      </label>
+
+      <label class="form-honeypot" aria-hidden="true">
+        <span>Company</span>
+        <input name="company" type="text" tabindex="-1" autocomplete="off" />
+      </label>
+
+      {turnstileSiteKey ? (
+        <div
+          class="cf-turnstile"
+          data-sitekey={turnstileSiteKey}
+          data-theme="light"
+          data-size="flexible"
+        ></div>
+      ) : (
+        <p class="form-setup-note">
+          Online requests are being configured. Please call or email us in the meantime.
+        </p>
+      )}
+
+      <button
+        class="button button-primary contact-submit"
+        type="submit"
+        disabled={!turnstileSiteKey}
       >
         Request a free quote
-      </a>
-      <small>Email us at info@archi-pools.com.</small>
-    </div>
+      </button>
+      <p class="form-status" data-form-status aria-live="polite"></p>
+      <small class="form-consent">
+        By submitting, you agree that Archipools may contact you about this request.
+      </small>
+    </form>
   </div>
 </section>
+
+{turnstileSiteKey && (
+  <script is:inline src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+)}
+<script is:inline src="/scripts/contact-form.js" defer></script>
