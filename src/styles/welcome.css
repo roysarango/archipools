@@ -400,6 +400,19 @@
 	}
 	.contact-action p { margin: 0 0 24px; color: var(--color-text-muted); line-height: 1.7; }
 	.contact-action small { display: block; margin-top: 13px; color: #82928e; font-size: .65rem; }
+	.contact-details {
+		margin-top: 28px;
+		display: flex;
+		flex-wrap: wrap;
+		gap: 10px 22px;
+	}
+	.contact-details a {
+		color: var(--color-blue-700);
+		font-size: .85rem;
+		font-weight: 750;
+		text-decoration: none;
+	}
+	.contact-details a:hover { color: var(--color-blue-500); }
 
 	footer {
 		width: min(1180px, calc(100% - 48px));
