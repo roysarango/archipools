@@ -59,6 +59,11 @@
 	color: #3c87d3;
 }
 
+.header-phone {
+	font-variant-numeric: tabular-nums;
+	white-space: nowrap;
+}
+
 .header-nav a:focus-visible,
 .menu-toggle:focus-visible {
 	outline: 3px solid rgb(87 178 244 / 40%);
