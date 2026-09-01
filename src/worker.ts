@@ -1,17 +1,6 @@
-interface EmailBinding {
-	send(message: {
-		to: string;
-		from: string | { email: string; name?: string };
-		replyTo?: string;
-		subject: string;
-		html: string;
-		text: string;
-	}): Promise<{ messageId: string }>;
-}
-
 interface Env {
 	ASSETS: { fetch(request: Request): Promise<Response> };
-	EMAIL: EmailBinding;
+	RESEND_API_KEY?: string;
 	TURNSTILE_SECRET_KEY?: string;
 }
 
@@ -128,6 +117,9 @@ async function handleContact(request: Request, env: Env) {
 	if (!turnstileToken || !env.TURNSTILE_SECRET_KEY) {
 		return json({ success: false, message: 'The security check is unavailable. Please call us instead.' }, 503);
 	}
+	if (!env.RESEND_API_KEY) {
+		return json({ success: false, message: 'Online requests are temporarily unavailable. Please call us instead.' }, 503);
+	}
 
 	let isHuman = false;
 	try {
@@ -154,12 +146,18 @@ async function handleContact(request: Request, env: Env) {
 	};
 
 	try {
-		const result = await env.EMAIL.send({
-			to: CONTACT_EMAIL,
-			from: { email: SENDER_EMAIL, name: 'Archipools Website' },
-			replyTo: email || undefined,
-			subject: `New pool service request — ${service} — ${zip}`,
-			text: [
+		const emailResponse = await fetch('https://api.resend.com/emails', {
+			method: 'POST',
+			headers: {
+				Authorization: `Bearer ${env.RESEND_API_KEY}`,
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({
+				to: [CONTACT_EMAIL],
+				from: `Archipools Website <${SENDER_EMAIL}>`,
+				reply_to: email || undefined,
+				subject: `New pool service request — ${service} — ${zip}`,
+				text: [
 				'New request from the Archipools website',
 				'',
 				`Name: ${name}`,
@@ -169,8 +167,8 @@ async function handleContact(request: Request, env: Env) {
 				`Service: ${service}`,
 				'',
 				`Message: ${message || 'Not provided'}`,
-			].join('\n'),
-			html: `
+				].join('\n'),
+				html: `
 				<h2>New request from the Archipools website</h2>
 				<table cellpadding="6" cellspacing="0" border="0">
 					<tr><td><strong>Name</strong></td><td>${safe.name}</td></tr>
@@ -181,10 +179,23 @@ async function handleContact(request: Request, env: Env) {
 				</table>
 				<h3>Message</h3>
 				<p>${safe.message}</p>
-			`,
+				`,
+			}),
 		});
 
-		console.log('Contact notification sent', { messageId: result.messageId });
+		const result = await emailResponse.json() as { id?: string; message?: string };
+		if (!emailResponse.ok || !result.id) {
+			console.error('Resend rejected contact notification', {
+				status: emailResponse.status,
+				message: result.message,
+			});
+			return json({
+				success: false,
+				message: 'We could not send your request. Please call (945) 382-3896 instead.',
+			}, 502);
+		}
+
+		console.log('Contact notification sent', { messageId: result.id });
 		return json({ success: true });
 	} catch (error) {
 		console.error('Contact notification failed', error);
