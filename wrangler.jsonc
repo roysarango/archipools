@@ -1,7 +1,17 @@
 {
 	"name": "archipools",
+	"main": "src/worker.ts",
 	"compatibility_date": "2026-09-01",
 	"assets": {
-		"directory": "./dist"
-	}
+		"binding": "ASSETS",
+		"directory": "./dist",
+		"run_worker_first": ["/api/*"]
+	},
+	"send_email": [
+		{
+			"name": "EMAIL",
+			"destination_address": "info@archi-pools.com",
+			"allowed_sender_addresses": ["website@archi-pools.com"]
+		}
+	]
 }
