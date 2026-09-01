@@ -16,7 +16,7 @@ interface ContactPayload {
 }
 
 const CONTACT_EMAIL = 'info@archi-pools.com';
-const SENDER_EMAIL = 'website@archi-pools.com';
+const SENDER_EMAIL = 'website@notifications.archi-pools.com';
 const SERVICES = new Set([
 	'Weekly pool service',
 	'Pool recovery',
